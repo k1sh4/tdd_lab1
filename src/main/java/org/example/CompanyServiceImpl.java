@@ -22,17 +22,16 @@ public class CompanyServiceImpl implements ICompanyService {
         if (company == null || companies.isEmpty()) {
             return 0;
         }
-            long count = NumberOfEmployee(company.getEmployeesCount(), company, companies);
-            return count;
+            return NumberOfEmployee(company.getEmployeesCount(), company, companies);
     }
 
-    private long NumberOfEmployee(long number, Company company, List<Company> companies) {
+    private long NumberOfEmployee(long count, Company company, List<Company> companies) {
         for (Company child : companies) {
             if (child.getParent() == company) {
-                number += child.getEmployeesCount() + NumberOfEmployee(0, child, companies);
+                count += child.getEmployeesCount() + NumberOfEmployee(0, child, companies);
             }
         }
-        return number;
+        return count;
     }
 
 
